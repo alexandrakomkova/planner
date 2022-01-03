@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Planner</string>
+    <string name="delete_confirmation">Confirmation</string>
+    <string name="sureToDelete">Are you sure you want to delete the task?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="confirmation">Completed the task!..</string>
+    <string-array name="taskTitles">
+        <item>Work</item>
+        <item>Study</item>
+        <item>Family</item>
+        <item>Friends</item>
+        <item>Sleep</item>
+        <item>Break Time</item>
+        <item>Eat Time</item>
+        <item>Shop</item>
+    </string-array>
+</resources>

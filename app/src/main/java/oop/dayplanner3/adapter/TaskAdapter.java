@@ -66,7 +66,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     public void onBindViewHolder(@NonNull TaskAdapter.TaskViewHolder holder, int position) {
         List<Category> list = Data.getCategoryList();
         holder.title.setText(String.valueOf(task_title.get(position)));
-        holder.time.setText(formTimeString(String.valueOf(task_startTime.get(position)), String.valueOf(task_finishTime.get(position))));
+        if(String.valueOf(task_title.get(position)).equals("Night Sleep")) {
+            holder.time.setText("");
+        }else{
+            holder.time.setText(formTimeString(String.valueOf(task_startTime.get(position)), String.valueOf(task_finishTime.get(position))));
+        }
         holder.timeTotal.setText(formTotalTimeString(String.valueOf(task_startTime.get(position)), String.valueOf(task_finishTime.get(position))));
 
         for(int i =0; i<list.size();i++){

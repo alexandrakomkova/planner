@@ -56,11 +56,12 @@ public class NewTaskActivity extends AppCompatActivity {
     TextView timeStartTitle, timeFinishTitle, timeNight;
 
     Integer taskId;
-    boolean isEdit;
+    boolean isEdit, isNightSleep;
     int mHour, mMinute, hourStart, hourFinish, minuteStart, minuteFinish;
     TimePickerDialog timePickerDialog;
     CategoryAdapter categoryAdapter;
     List<Category> list;
+    String nightSleepTime;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @SuppressLint("ClickableViewAccessibility")
@@ -130,15 +131,21 @@ public class NewTaskActivity extends AppCompatActivity {
         addTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(validateFields())
+                if(list.get(Integer.parseInt(addTaskTitle.getSelectedItem().toString())).getName().equals("Night Sleep")){
                     saveTask();
+                }
+                else {
+                    if (validateFields())
+                        saveTask();
+                }
             }
         });
 
         addTaskTitle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                if(list.get(Integer.parseInt(addTaskTitle.getSelectedItem().toString())).getName().equals("Night Sleep")){
+                isNightSleep = list.get(Integer.parseInt(addTaskTitle.getSelectedItem().toString())).getName().equals("Night Sleep");
+                if(isNightSleep){
                     Log.d(log_tag, "CLICKED" + addTaskTitle.getSelectedItem().toString());
                     timeStartTitle.setVisibility(View.INVISIBLE);
                     timeFinishTitle.setVisibility(View.INVISIBLE);
@@ -177,6 +184,7 @@ public class NewTaskActivity extends AppCompatActivity {
                                 mHour = hourOfDay;
                                 mMinute = minuteOfDay;
                                 String time = mHour + ":" + mMinute;
+                                nightSleepTime = time;
                                 SimpleDateFormat f24Hour = new SimpleDateFormat("HH:mm");
                                 try{
                                     Date date = f24Hour.parse(time);
@@ -230,28 +238,39 @@ public class NewTaskActivity extends AppCompatActivity {
             @Override
             protected Void doInBackground(Void... voids) {
                 if (!isEdit) {
-                    addTaskToDatabase(
-                            list.get(Integer.parseInt(addTaskTitle.getSelectedItem().toString())).getName(),
-                            taskStartTime.getText().toString(),
-                            taskFinishTime.getText().toString());
+
+                    if(isNightSleep){
+                        addTaskToDatabase(
+                                list.get(Integer.parseInt(addTaskTitle.getSelectedItem().toString())).getName(),
+                                "0:0",
+                                nightSleepTime);
+                    }else{
+                        addTaskToDatabase(
+                                list.get(Integer.parseInt(addTaskTitle.getSelectedItem().toString())).getName(),
+                                taskStartTime.getText().toString(),
+                                taskFinishTime.getText().toString());
+                    }
                     //Log.d(log_tag, list.get(Integer.parseInt(addTaskTitle.getSelectedItem().toString())).getName());
                     /*addTaskToDatabase(
                             addTaskTitle.getSelectedItem().toString(),
                             taskStartTime.getText().toString(),
                             taskFinishTime.getText().toString());*/
                 }else{
+                    if(isNightSleep){
+                        updateTaskToDatabase(
+                                list.get(Integer.parseInt(addTaskTitle.getSelectedItem().toString())).getName(),
+                                "0:0",
+                                nightSleepTime,
+                                taskId);
+
+                    }else{
                     updateTaskToDatabase(
                             list.get(Integer.parseInt(addTaskTitle.getSelectedItem().toString())).getName(),
                             taskStartTime.getText().toString(),
                             taskFinishTime.getText().toString(),
                             taskId
                     );
-                    /*updateTaskToDatabase(
-                            addTaskTitle.getSelectedItem().toString(),
-                            taskStartTime.getText().toString(),
-                            taskFinishTime.getText().toString(),
-                            taskId
-                    );*/
+                    }
                 }
                 return null;
             }

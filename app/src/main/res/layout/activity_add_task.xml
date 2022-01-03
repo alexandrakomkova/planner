@@ -65,7 +65,7 @@
                 android:drawableTop="@drawable/clock_icon"
                 android:id="@+id/timeNight"
                 android:textSize="18sp"
-                android:text="Task spend time: "
+                android:text="How much did you sleep at night: "
                 android:visibility="invisible"
                 />
             </LinearLayout>
@@ -75,7 +75,7 @@
                 android:fontFamily="sans-serif-medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="-60dp"
                 android:textSize="16sp"
                 android:id="@+id/timeStartTitle"
                 android:text="Task start time" />

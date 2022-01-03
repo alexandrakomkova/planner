@@ -132,7 +132,8 @@ public class NewTaskActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(list.get(Integer.parseInt(addTaskTitle.getSelectedItem().toString())).getName().equals("Night Sleep")){
-                    saveTask();
+                    if(validateNightSleepFields())
+                        saveTask();
                 }
                 else {
                     if (validateFields())
@@ -147,21 +148,11 @@ public class NewTaskActivity extends AppCompatActivity {
                 isNightSleep = list.get(Integer.parseInt(addTaskTitle.getSelectedItem().toString())).getName().equals("Night Sleep");
                 if(isNightSleep){
                     Log.d(log_tag, "CLICKED" + addTaskTitle.getSelectedItem().toString());
-                    timeStartTitle.setVisibility(View.INVISIBLE);
-                    timeFinishTitle.setVisibility(View.INVISIBLE);
-                    taskFinishTime.setVisibility(View.INVISIBLE);
-                    taskStartTime.setVisibility(View.INVISIBLE);
-
-                    timeNight.setVisibility(View.VISIBLE);
+                    showNightSleepFields();
 
                 }
                 else{
-                    timeStartTitle.setVisibility(View.VISIBLE);
-                    timeFinishTitle.setVisibility(View.VISIBLE);
-                    taskFinishTime.setVisibility(View.VISIBLE);
-                    taskStartTime.setVisibility(View.VISIBLE);
-
-                    timeNight.setVisibility(View.INVISIBLE);
+                    showTaskFields();
                 }
             }
 
@@ -216,18 +207,18 @@ public class NewTaskActivity extends AppCompatActivity {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
 
-                //int spinnerPosition = categoryAdapter.getCategoryListPosition(cursor.getString(1));
-                //addTaskTitle.setAdapter(categoryAdapter);
-                //ArrayAdapter adapterForSetSelectedTitle = (ArrayAdapter) addTaskTitle.getAdapter();
+                for(int i =0; i < categoryAdapter.getCount(); i++){
+                    if(list.get(i).getName().equals(cursor.getString(1))){
+                        addTaskTitle.setSelection(i);
+                    }
+                }
 
-                //categoryAdapter = new CategoryAdapter(this, Data.getCategoryList());
-                //addTaskTitle.setAdapter(categoryAdapter);
-
-                //addTaskTitle.setSelection(spinnerPosition);
-                //Log.d(log_tag, spinnerPosition+"");
-
-                taskStartTime.setText(cursor.getString(2));
-                taskFinishTime.setText(cursor.getString(3));
+                if(cursor.getString(1).equals("Night Sleep")){
+                    timeNight.append(cursor.getString(3));
+                }else{
+                    taskStartTime.setText(cursor.getString(2));
+                    taskFinishTime.setText(cursor.getString(3));
+                }
                 cursor.moveToNext();
             }
         }
@@ -311,6 +302,15 @@ public class NewTaskActivity extends AppCompatActivity {
             return true;
         }
     }
+    public boolean validateNightSleepFields() {
+        if(nightSleepTime == null){
+            Toast.makeText(this, "Please enter how mich time you slept", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
 
     public void addTaskToDatabase(String title, String startTime, String finishTime){
         try{
@@ -344,6 +344,25 @@ public class NewTaskActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+
+    public void showNightSleepFields(){
+        timeStartTitle.setVisibility(View.INVISIBLE);
+        timeFinishTitle.setVisibility(View.INVISIBLE);
+        taskFinishTime.setVisibility(View.INVISIBLE);
+        taskStartTime.setVisibility(View.INVISIBLE);
+
+        timeNight.setVisibility(View.VISIBLE);
+    }
+
+    public void showTaskFields(){
+        timeStartTitle.setVisibility(View.VISIBLE);
+        timeFinishTitle.setVisibility(View.VISIBLE);
+        taskFinishTime.setVisibility(View.VISIBLE);
+        taskStartTime.setVisibility(View.VISIBLE);
+
+        timeNight.setVisibility(View.INVISIBLE);
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();

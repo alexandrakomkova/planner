@@ -48,13 +48,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:entries="@array/taskTitles" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <TextView
+                android:layout_marginLeft="3dp"
+                android:fontFamily="sans-serif-medium"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:background="@color/colorGreyBg"
+                android:drawableTop="@drawable/clock_icon"
+                android:id="@+id/timeNight"
+                android:textSize="18sp"
+                android:text="Task spend time: "
+                android:visibility="invisible"
+                />
+            </LinearLayout>
+
             <TextView
                 android:layout_marginLeft="3dp"
                 android:fontFamily="sans-serif-medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:textSize="16sp"
+                android:id="@+id/timeStartTitle"
                 android:text="Task start time" />
 
             <EditText
@@ -77,6 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:text="Task finish time"
+                android:id="@+id/timeFinishTitle"
                 android:textSize="16sp"
                 />
 

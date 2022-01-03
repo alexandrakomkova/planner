@@ -7,4 +7,5 @@
     <color name="colorDarkBlueBg">#191970</color>
     <color name="colorWhiteFont">#ffffff</color>
     <color name="colorPinkAccent">#F63EA5</color>
+    <color name="colorGreyBg">#F0F0F0</color>
 </resources>

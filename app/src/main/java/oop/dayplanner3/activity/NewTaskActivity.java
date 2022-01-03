@@ -13,6 +13,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -25,12 +27,17 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -46,6 +53,7 @@ public class NewTaskActivity extends AppCompatActivity {
     EditText taskStartTime;
     EditText taskFinishTime;
     Button addTask;
+    TextView timeStartTitle, timeFinishTitle, timeNight;
 
     Integer taskId;
     boolean isEdit;
@@ -65,6 +73,9 @@ public class NewTaskActivity extends AppCompatActivity {
         taskStartTime = findViewById(R.id.taskStartTime);
         taskFinishTime = findViewById(R.id.taskFinishTime);
         addTask = findViewById(R.id.addTask);
+        timeStartTitle = findViewById(R.id.timeStartTitle);
+        timeFinishTitle = findViewById(R.id.timeFinishTitle);
+        timeNight = findViewById(R.id.timeNight);
 
         taskStartTime.setOnTouchListener((view, motionEvent) -> {
             if(motionEvent.getAction() == MotionEvent.ACTION_UP) {
@@ -129,6 +140,21 @@ public class NewTaskActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 if(list.get(Integer.parseInt(addTaskTitle.getSelectedItem().toString())).getName().equals("Night Sleep")){
                     Log.d(log_tag, "CLICKED" + addTaskTitle.getSelectedItem().toString());
+                    timeStartTitle.setVisibility(View.INVISIBLE);
+                    timeFinishTitle.setVisibility(View.INVISIBLE);
+                    taskFinishTime.setVisibility(View.INVISIBLE);
+                    taskStartTime.setVisibility(View.INVISIBLE);
+
+                    timeNight.setVisibility(View.VISIBLE);
+
+                }
+                else{
+                    timeStartTitle.setVisibility(View.VISIBLE);
+                    timeFinishTitle.setVisibility(View.VISIBLE);
+                    taskFinishTime.setVisibility(View.VISIBLE);
+                    taskStartTime.setVisibility(View.VISIBLE);
+
+                    timeNight.setVisibility(View.INVISIBLE);
                 }
             }
 
@@ -137,6 +163,34 @@ public class NewTaskActivity extends AppCompatActivity {
                 Log.d(log_tag, "NOTHING SELECTED");
             }
 
+        });
+
+        timeNight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TimePickerDialog timePickerDialog = new TimePickerDialog(
+                        NewTaskActivity.this,
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker timePicker, int hourOfDay, int minuteOfDay) {
+                                mHour = hourOfDay;
+                                mMinute = minuteOfDay;
+                                String time = mHour + ":" + mMinute;
+                                SimpleDateFormat f24Hour = new SimpleDateFormat("HH:mm");
+                                try{
+                                    Date date = f24Hour.parse(time);
+                                    timeNight.append(f24Hour.format(date));
+                                }catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }, 24, 0, true
+                );
+                timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                timePickerDialog.updateTime(mHour, mMinute);
+                timePickerDialog.show();
+            }
         });
 
     }

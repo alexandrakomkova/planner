@@ -19,6 +19,11 @@ public class Data {
         sleep.setImage(R.drawable.sleep);
         categoryList.add(sleep);
 
+        Category nightSleep = new Category();
+        nightSleep.setName("Night Sleep");
+        nightSleep.setImage(R.drawable.nightsleep);
+        categoryList.add(nightSleep);
+
         Category study = new Category();
         study.setName("Study");
         study.setImage(R.drawable.study);

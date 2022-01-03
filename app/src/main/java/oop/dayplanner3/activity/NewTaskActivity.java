@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -123,6 +124,20 @@ public class NewTaskActivity extends AppCompatActivity {
             }
         });
 
+        addTaskTitle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                if(list.get(Integer.parseInt(addTaskTitle.getSelectedItem().toString())).getName().equals("Night Sleep")){
+                    Log.d(log_tag, "CLICKED" + addTaskTitle.getSelectedItem().toString());
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                Log.d(log_tag, "NOTHING SELECTED");
+            }
+
+        });
 
     }
 
@@ -165,7 +180,7 @@ public class NewTaskActivity extends AppCompatActivity {
                             list.get(Integer.parseInt(addTaskTitle.getSelectedItem().toString())).getName(),
                             taskStartTime.getText().toString(),
                             taskFinishTime.getText().toString());
-                    Log.d(log_tag, list.get(Integer.parseInt(addTaskTitle.getSelectedItem().toString())).getName());
+                    //Log.d(log_tag, list.get(Integer.parseInt(addTaskTitle.getSelectedItem().toString())).getName());
                     /*addTaskToDatabase(
                             addTaskTitle.getSelectedItem().toString(),
                             taskStartTime.getText().toString(),

@@ -32,9 +32,6 @@ import oop.dayplanner3.model.Task;
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder>{
 
     private Context context;
-    private LayoutInflater inflater;
-    private List<Task> taskList;
-    Context applicationContext = MainActivity.getContextOfApplication();
     private ArrayList task_id, task_title, task_startTime, task_finishTime;
     public interface OnNoteClickListener{void onNoteClick(int position);}
     private final OnNoteClickListener onNoteClickListener;

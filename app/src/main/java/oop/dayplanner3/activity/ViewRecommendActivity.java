@@ -22,13 +22,17 @@ import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import oop.dayplanner3.R;
 import oop.dayplanner3.database.DatabaseHelper;
+import oop.dayplanner3.model.Category;
+import oop.dayplanner3.model.Data;
 
 public class ViewRecommendActivity extends AppCompatActivity {
     private PieChart pieChart;
-    private String[] taskTitles = {"Work", "Study", "Family", "Friends", "Sleep", "Break Time", "Eat Time", "Shop"};
+    private String[] taskTitles;
+    ArrayList<String> arrayList;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +70,7 @@ public class ViewRecommendActivity extends AppCompatActivity {
     }
     private void loadPieChartData() {
         ArrayList<PieEntry> entries = new ArrayList<>();
+        addCategoriesTitlesToArray();
 
         for (int i=0; i < taskTitles.length;i++){
             if(percentValueForTask(taskTitles[i]) !=0.00){
@@ -81,7 +86,7 @@ public class ViewRecommendActivity extends AppCompatActivity {
             colors.add(color);
         }
 
-        PieDataSet dataSet = new PieDataSet(entries, "Expense Category");
+        PieDataSet dataSet = new PieDataSet(entries, "All categories");
         dataSet.setColors(colors);
 
         PieData data = new PieData(dataSet);
@@ -145,6 +150,16 @@ public class ViewRecommendActivity extends AppCompatActivity {
         Integer m = min%60;
 
         return " "+h+"h"+m+"min";
+    }
+
+    private void addCategoriesTitlesToArray(){
+        List<Category> list = Data.getCategoryList();
+        taskTitles = new String[list.size()];
+        arrayList = new ArrayList<String>();
+        for(int i =0; i < list.size();i++){
+            arrayList.add(list.get(i).getName());
+        }
+        taskTitles = arrayList.toArray(taskTitles);
     }
 
 }

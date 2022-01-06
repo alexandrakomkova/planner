@@ -31,8 +31,8 @@ import oop.dayplanner3.model.Data;
 
 public class ViewRecommendActivity extends AppCompatActivity {
     private PieChart pieChart;
-    private String[] taskTitles;
-    ArrayList<String> arrayList;
+   // private String[] taskTitles;
+    ArrayList<String> taskTitles;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,11 +72,17 @@ public class ViewRecommendActivity extends AppCompatActivity {
         ArrayList<PieEntry> entries = new ArrayList<>();
         addCategoriesTitlesToArray();
 
-        for (int i=0; i < taskTitles.length;i++){
+        /*for (int i=0; i < taskTitles.length;i++){
             if(percentValueForTask(taskTitles[i]) !=0.00){
                 entries.add(new PieEntry(percentValueForTask(taskTitles[i]), taskTitles[i] ));
             }
+        }*/
+        for (int i=0; i < taskTitles.size();i++){
+            if(percentValueForTask(taskTitles.get(i)) !=0.00){
+                entries.add(new PieEntry(percentValueForTask(taskTitles.get(i)), taskTitles.get(i) ));
+            }
         }
+
         ArrayList<Integer> colors = new ArrayList<>();
         for (int color: ColorTemplate.MATERIAL_COLORS) {
             colors.add(color);
@@ -154,12 +160,17 @@ public class ViewRecommendActivity extends AppCompatActivity {
 
     private void addCategoriesTitlesToArray(){
         List<Category> list = Data.getCategoryList();
-        taskTitles = new String[list.size()];
+        /*taskTitles = new String[list.size()];
         arrayList = new ArrayList<String>();
         for(int i =0; i < list.size();i++){
             arrayList.add(list.get(i).getName());
         }
-        taskTitles = arrayList.toArray(taskTitles);
+        taskTitles = arrayList.toArray(taskTitles);*/
+
+        taskTitles = new ArrayList<String>();
+        for(int i =0; i < list.size();i++){
+            taskTitles.add(list.get(i).getName());
+        }
     }
 
 }

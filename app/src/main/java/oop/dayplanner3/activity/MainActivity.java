@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         TaskAdapter.OnNoteClickListener noteClickListener = new TaskAdapter.OnNoteClickListener() {
             @Override
             public void onNoteClick(int position) {
-                //Toast.makeText(getApplicationContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
+                updateTask(position);
             }
         };
 
@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
         taskRecycler.setAdapter(taskAdapter);
         taskRecycler.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+
 
     }
 

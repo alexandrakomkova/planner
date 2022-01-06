@@ -27,7 +27,6 @@ import oop.dayplanner3.activity.MainActivity;
 import oop.dayplanner3.TaskProvider;
 import oop.dayplanner3.model.Category;
 import oop.dayplanner3.model.Data;
-import oop.dayplanner3.model.Task;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder>{
 
@@ -80,12 +79,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             }
         }
 
-        /* holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onNoteClickListener.onNoteClick(holder.getAdapterPosition());
+               onNoteClickListener.onNoteClick(Integer.parseInt(String.valueOf(task_id.get(position))));
             }
-        });*/
+        });
 
         holder.btnDelete.setOnClickListener(view -> {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context, R.style.AppTheme_Dialog);

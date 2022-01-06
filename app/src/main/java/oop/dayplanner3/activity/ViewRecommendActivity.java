@@ -3,23 +3,31 @@ package oop.dayplanner3.activity;
 import static oop.dayplanner3.TaskProvider.TASK_URI;
 import static oop.dayplanner3.TaskProvider.log_tag;
 
+import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +41,7 @@ public class ViewRecommendActivity extends AppCompatActivity {
     private PieChart pieChart;
    // private String[] taskTitles;
     ArrayList<String> taskTitles;
+    TextView textRecommends;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +50,22 @@ public class ViewRecommendActivity extends AppCompatActivity {
         pieChart = findViewById(R.id.piechart);
         setupPieChart();
         loadPieChartData();
+        textRecommends = findViewById(R.id.textRecommend);
 
+        /*
+        pieChart.setClickable(true);
+        pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry entry, Highlight highlight) {
+                textRecommends.setText(taskTitles.get(entry.) + " = " + highlight.getDataIndex() + "%");
+            }
+
+            @Override
+            public void onNothingSelected() {
+
+            }
+        });
+        */
     }
     private void setupPieChart() {
         pieChart.setDrawHoleEnabled(true);
@@ -60,23 +84,12 @@ public class ViewRecommendActivity extends AppCompatActivity {
         l.setTextSize(12);
         l.setEnabled(true);
 
-        /*pieChart.setClickable(true);
-        pieChart.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Log.d("TAG", "TOUCHED IN : " + v.getId());
-            }
-        });*/
+
     }
     private void loadPieChartData() {
         ArrayList<PieEntry> entries = new ArrayList<>();
         addCategoriesTitlesToArray();
 
-        /*for (int i=0; i < taskTitles.length;i++){
-            if(percentValueForTask(taskTitles[i]) !=0.00){
-                entries.add(new PieEntry(percentValueForTask(taskTitles[i]), taskTitles[i] ));
-            }
-        }*/
         for (int i=0; i < taskTitles.size();i++){
             if(percentValueForTask(taskTitles.get(i)) !=0.00){
                 entries.add(new PieEntry(percentValueForTask(taskTitles.get(i)), taskTitles.get(i) ));
@@ -151,26 +164,13 @@ public class ViewRecommendActivity extends AppCompatActivity {
         return Float.valueOf((sumTimeForTask(taskTitle)*100)/(24*60));
     }
 
-    private String formLabelString(Integer min){
-        Integer h = min/60;
-        Integer m = min%60;
-
-        return " "+h+"h"+m+"min";
-    }
-
     private void addCategoriesTitlesToArray(){
         List<Category> list = Data.getCategoryList();
-        /*taskTitles = new String[list.size()];
-        arrayList = new ArrayList<String>();
-        for(int i =0; i < list.size();i++){
-            arrayList.add(list.get(i).getName());
-        }
-        taskTitles = arrayList.toArray(taskTitles);*/
-
         taskTitles = new ArrayList<String>();
         for(int i =0; i < list.size();i++){
             taskTitles.add(list.get(i).getName());
         }
     }
+
 
 }

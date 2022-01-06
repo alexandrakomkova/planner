@@ -2,6 +2,7 @@ package oop.dayplanner3.adapter;
 
 import static oop.dayplanner3.TaskProvider.log_tag;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -62,7 +63,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TaskAdapter.TaskViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TaskAdapter.TaskViewHolder holder, @SuppressLint("RecyclerView") int position) {
         List<Category> list = Data.getCategoryList();
         holder.title.setText(String.valueOf(task_title.get(position)));
         if(String.valueOf(task_title.get(position)).equals("Night Sleep")) {
@@ -88,7 +89,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
         holder.btnDelete.setOnClickListener(view -> {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context, R.style.AppTheme_Dialog);
-            alertDialogBuilder.setTitle(R.string.delete_confirmation).setMessage(R.string.sureToDelete).
+            alertDialogBuilder.setTitle(R.string.delete_confirmation).setMessage(R.string.sure_to_delete).
                     setPositiveButton(R.string.yes, (dialog, which) -> {
                         deleteTaskFromId(Integer.parseInt(String.valueOf(task_id.get(position))), position);
                     })

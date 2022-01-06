@@ -1,10 +1,13 @@
 <resources>
     <string name="app_name">Planner</string>
     <string name="delete_confirmation">Confirmation</string>
-    <string name="sureToDelete">Are you sure you want to delete the task?</string>
+    <string name="sure_to_delete">Are you sure you want to delete the task?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="confirmation">Completed the task!..</string>
+    <string name="about_dialog_header">This is a Daily Planner!</string>
+    <string name="about_dialog_text">This app will help you to organise your daily tasks and analyse your time!
+    Have a nice day!! :)</string>
     <string-array name="taskTitles">
         <item>Work</item>
         <item>Study</item>

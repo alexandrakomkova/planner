@@ -36,21 +36,24 @@ import oop.dayplanner3.R;
 import oop.dayplanner3.database.DatabaseHelper;
 import oop.dayplanner3.model.Category;
 import oop.dayplanner3.model.Data;
+import oop.dayplanner3.model.Recommends;
 
 public class ViewRecommendActivity extends AppCompatActivity {
     private PieChart pieChart;
    // private String[] taskTitles;
     ArrayList<String> taskTitles;
     TextView textRecommends;
+    String recommends = "";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_recommend);
+        textRecommends = findViewById(R.id.textRecommend);
+
 
         pieChart = findViewById(R.id.piechart);
         setupPieChart();
         loadPieChartData();
-        textRecommends = findViewById(R.id.textRecommend);
 
         /*
         pieChart.setClickable(true);
@@ -120,6 +123,7 @@ public class ViewRecommendActivity extends AppCompatActivity {
 
     private Integer sumTimeForTask(String taskTitle){
         Integer sum = 0;
+        Integer totalHour=0;
         try{
             String[] strArgs = {taskTitle};
             Cursor cursor = getContentResolver().query(
@@ -141,7 +145,7 @@ public class ViewRecommendActivity extends AppCompatActivity {
                     Integer hourFinish = Integer.parseInt(items_timeFinish[0]);
                     Integer minuteFinish = Integer.parseInt(items_timeFinish[1]);
 
-                    Integer totalHour = hourFinish - hourStart;
+                    totalHour = hourFinish - hourStart;
                     Integer totalMinutes = minuteFinish - minuteStart;
 
                     if(totalMinutes < 0){
@@ -153,6 +157,10 @@ public class ViewRecommendActivity extends AppCompatActivity {
                 }
 
             }
+            //сюда закинуть метод для анализа
+
+            textRecommends.setText(analyseData(taskTitle, sum));
+            //
         }catch (Exception e){
             Toast.makeText(ViewRecommendActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
             Log.d(log_tag, e.getMessage());
@@ -170,6 +178,29 @@ public class ViewRecommendActivity extends AppCompatActivity {
         for(int i =0; i < list.size();i++){
             taskTitles.add(list.get(i).getName());
         }
+    }
+
+    public String analyseData(String title, Integer hour){
+        switch (title) {
+            case "Work":
+                recommends += Recommends.analyseWork(hour);
+                break;
+            case "Night Sleep":
+                recommends += Recommends.analyseNightSleep(hour);
+                break;
+            case "Study":
+                recommends += Recommends.analyseStudy(hour);
+                break;
+            case "Eat Time":
+                recommends += Recommends.analyseEatTime(hour);
+                break;
+            case "Break Time":
+                recommends += Recommends.analyseBreakTime(hour);
+                break;
+            default:
+                break;
+        }
+        return recommends;
     }
 
 

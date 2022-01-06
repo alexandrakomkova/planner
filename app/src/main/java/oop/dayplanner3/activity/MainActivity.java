@@ -125,7 +125,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(Void v) {
                 super.onPostExecute(v);
-                //noDataImage.setVisibility(tasks.isEmpty() ? View.VISIBLE : View.GONE);
                setUpAdapter();
             }
         }
@@ -160,13 +159,13 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onContextItemSelected(item);
         }
-
-
     }
 
     public void viewRecommends(){
-        Intent intent = new Intent(this, ViewRecommendActivity.class);
-        startActivity(intent);
+        if(taskAdapter.getItemCount()!=0) {
+            Intent intent = new Intent(this, ViewRecommendActivity.class);
+            startActivity(intent);
+        }
     }
 
     public void aboutAppDialog(){

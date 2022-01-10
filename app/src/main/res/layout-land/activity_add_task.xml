@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/colorDarkBlueBg">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Add new does"
+            android:textColor="@color/colorWhiteFont"
+            android:textSize="22sp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="0dp"
+            android:paddingBottom="50dp">
+        <TextView
+            android:layout_marginLeft="3dp"
+            android:fontFamily="sans-serif-medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Task title"
+            android:textSize="16sp"
+            />
+        <Spinner
+            android:id="@+id/spinnerTaskTitle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:entries="@array/taskTitles" />
+
+            <TextView
+                android:layout_marginLeft="3dp"
+                android:fontFamily="sans-serif-medium"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorGreyBg"
+                android:drawableTop="@drawable/clock_icon"
+                android:id="@+id/timeNight"
+                android:textSize="18sp"
+                android:text="How much did you sleep at night: "
+                android:visibility="invisible"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="-80dp">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/timeStartTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Task start time"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/taskStartTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/btn_border"
+                        android:fontFamily="sans-serif-medium"
+                        android:hint="When you will start?"
+                        android:padding="10dp"
+                        android:singleLine="true"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/timeFinishTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Task finish time"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/taskFinishTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/btn_border"
+                        android:fontFamily="sans-serif-medium"
+                        android:hint="When will you finish?"
+                        android:padding="10dp"
+                        android:singleLine="true"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:layout_marginTop="15dp">
+                <Button
+                    android:id="@+id/addTask"
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:text="Save task"
+                    android:fontFamily="sans-serif-medium"
+                    android:background="@drawable/btn_add_task"
+                    android:textColor="@color/colorPrimary"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+</LinearLayout>

@@ -84,10 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
         taskRecycler.setAdapter(taskAdapter);
         taskRecycler.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-
-
     }
-
 
     @Override
     public void onResume() {
@@ -105,7 +102,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected Void doInBackground(Void... voids) {
                     try{
-                        Cursor cursor = getContentResolver().query(TASK_URI, null, null, null, null);
+                        Cursor cursor = getContentResolver().query(
+                                TASK_URI,
+                                null,
+                                null,
+                                null,
+                                null);
                         cursor.moveToFirst();
                         while(!cursor.isAfterLast()){
                             task_id.add(String.valueOf(cursor.getInt(0)));

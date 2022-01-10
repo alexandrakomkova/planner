@@ -54,21 +54,6 @@ public class ViewRecommendActivity extends AppCompatActivity {
         pieChart = findViewById(R.id.piechart);
         setupPieChart();
         loadPieChartData();
-
-        /*
-        pieChart.setClickable(true);
-        pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-            @Override
-            public void onValueSelected(Entry entry, Highlight highlight) {
-                textRecommends.setText(taskTitles.get(entry.) + " = " + highlight.getDataIndex() + "%");
-            }
-
-            @Override
-            public void onNothingSelected() {
-
-            }
-        });
-        */
     }
     private void setupPieChart() {
         pieChart.setDrawHoleEnabled(true);
@@ -94,8 +79,9 @@ public class ViewRecommendActivity extends AppCompatActivity {
         addCategoriesTitlesToArray();
 
         for (int i=0; i < taskTitles.size();i++){
-            if(percentValueForTask(taskTitles.get(i)) !=0.00){
-                entries.add(new PieEntry(percentValueForTask(taskTitles.get(i)), taskTitles.get(i) ));
+            Float percentValue = percentValueForTask(taskTitles.get(i));
+            if(percentValue !=0.00){
+                entries.add(new PieEntry(percentValue, taskTitles.get(i) ));
             }
         }
 
@@ -119,6 +105,7 @@ public class ViewRecommendActivity extends AppCompatActivity {
 
         pieChart.setData(data);
         pieChart.invalidate();
+
     }
 
     private Integer sumTimeForTask(String taskTitle){
@@ -157,14 +144,13 @@ public class ViewRecommendActivity extends AppCompatActivity {
                 }
 
             }
-            //сюда закинуть метод для анализа
 
-            textRecommends.setText(analyseData(taskTitle, sum));
-            //
+            textRecommends.setText(analyseData(taskTitle, totalHour));
         }catch (Exception e){
             Toast.makeText(ViewRecommendActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
             Log.d(log_tag, e.getMessage());
         }
+
         return sum;
 
     }
@@ -177,6 +163,7 @@ public class ViewRecommendActivity extends AppCompatActivity {
         taskTitles = new ArrayList<String>();
         for(int i =0; i < list.size();i++){
             taskTitles.add(list.get(i).getName());
+            Log.d(log_tag, i+"/"+list.get(i).getName());
         }
     }
 
@@ -185,10 +172,10 @@ public class ViewRecommendActivity extends AppCompatActivity {
             case "Work":
                 recommends += Recommends.analyseWork(hour);
                 break;
-            case "Night Sleep":
+           case "Night Sleep":
                 recommends += Recommends.analyseNightSleep(hour);
                 break;
-           /* case "Study":
+           case "Study":
                 recommends += Recommends.analyseStudy(hour);
                 break;
             case "Eat Time":
@@ -196,7 +183,7 @@ public class ViewRecommendActivity extends AppCompatActivity {
                 break;
             case "Sleep":
                 recommends += Recommends.analyseSleep(hour);
-                break;*/
+                break;
             default:
                 break;
         }

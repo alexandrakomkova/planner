@@ -188,7 +188,7 @@ public class ViewRecommendActivity extends AppCompatActivity {
             case "Night Sleep":
                 recommends += Recommends.analyseNightSleep(hour);
                 break;
-            case "Study":
+           /* case "Study":
                 recommends += Recommends.analyseStudy(hour);
                 break;
             case "Eat Time":
@@ -196,7 +196,7 @@ public class ViewRecommendActivity extends AppCompatActivity {
                 break;
             case "Sleep":
                 recommends += Recommends.analyseSleep(hour);
-                break;
+                break;*/
             default:
                 break;
         }

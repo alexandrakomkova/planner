@@ -194,8 +194,8 @@ public class ViewRecommendActivity extends AppCompatActivity {
             case "Eat Time":
                 recommends += Recommends.analyseEatTime(hour);
                 break;
-            case "Break Time":
-                recommends += Recommends.analyseBreakTime(hour);
+            case "Sleep":
+                recommends += Recommends.analyseSleep(hour);
                 break;
             default:
                 break;

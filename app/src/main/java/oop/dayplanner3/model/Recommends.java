@@ -42,8 +42,10 @@ public class Recommends {
         return res;
     }
 
-    public static String analyseBreakTime(Integer hour){
-        return "break time";
+    public static String analyseSleep(Integer hour){
+        if(hour > 2){
+            res+= "It's scientific fact that day sleep help to long life.";
+        }
+        return res;
     }
-
 }

@@ -4,8 +4,12 @@ public class Recommends {
     private static String res;
 
     public static String analyseWork(Integer hour){
-
-        return "work";
+        if(hour < 4){
+            res+= "You work hard today!! Let's have a lunch.";
+        }else if(hour > 4){
+            res+= "You study a lot today..Let's spend time with friends or family!";
+        }
+        return res;
     }
 
     public static String analyseNightSleep(Integer hour){
@@ -23,11 +27,19 @@ public class Recommends {
 
 
     public static String analyseStudy(Integer hour){
-        return "study";
+        if(hour < 4){
+            res+= "You did a good job!! It's time to have a break time.";
+        }else if(hour > 4){
+            res+= "You study a lot today..Let's spend time with friends or family!";
+        }
+        return res;
     }
 
     public static String analyseEatTime(Integer hour){
-        return "eat time";
+        if(hour < 2){
+            res+= "Don't forget about lunch! Bon appetite ~";
+        }
+        return res;
     }
 
     public static String analyseBreakTime(Integer hour){

@@ -40,7 +40,6 @@ import oop.dayplanner3.model.Recommends;
 
 public class ViewRecommendActivity extends AppCompatActivity {
     private PieChart pieChart;
-   // private String[] taskTitles;
     ArrayList<String> taskTitles;
     TextView textRecommends;
     String recommends = "";

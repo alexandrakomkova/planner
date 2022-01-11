@@ -147,7 +147,6 @@ public class NewTaskActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 isNightSleep = list.get(Integer.parseInt(addTaskTitle.getSelectedItem().toString())).getName().equals("Night Sleep");
                 if(isNightSleep){
-                    Log.d(log_tag, "CLICKED" + addTaskTitle.getSelectedItem().toString());
                     showNightSleepFields();
 
                 }
@@ -158,7 +157,6 @@ public class NewTaskActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
-                Log.d(log_tag, "NOTHING SELECTED");
             }
 
         });
@@ -241,11 +239,6 @@ public class NewTaskActivity extends AppCompatActivity {
                                 taskStartTime.getText().toString(),
                                 taskFinishTime.getText().toString());
                     }
-                    //Log.d(log_tag, list.get(Integer.parseInt(addTaskTitle.getSelectedItem().toString())).getName());
-                    /*addTaskToDatabase(
-                            addTaskTitle.getSelectedItem().toString(),
-                            taskStartTime.getText().toString(),
-                            taskFinishTime.getText().toString());*/
                 }else{
                     if(isNightSleep){
                         updateTaskToDatabase(
@@ -270,9 +263,6 @@ public class NewTaskActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    //createAnAlarm();
-                }
                 goHome();
             }
         }
@@ -294,7 +284,7 @@ public class NewTaskActivity extends AppCompatActivity {
         }else if(hourStart == hourFinish && minuteStart > minuteFinish){
             Toast.makeText(this, "Finish time can't be less than start time", Toast.LENGTH_SHORT).show();
             return false;
-        }else if(hourStart > hourFinish && !addTaskTitle.getSelectedItem().toString().equals("Sleep")){
+        }else if(hourStart > hourFinish){
             Toast.makeText(this, "Finish time can't be less than start time", Toast.LENGTH_SHORT).show();
             return false;
         }

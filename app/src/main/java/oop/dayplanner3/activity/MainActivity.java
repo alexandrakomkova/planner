@@ -29,7 +29,6 @@ import oop.dayplanner3.adapter.TaskAdapter;
 import oop.dayplanner3.model.Task;
 
 public class MainActivity extends AppCompatActivity {
-    public static Context contextOfApplication;
     RecyclerView taskRecycler;
     Button addTask;
     Button viewRecommends;
